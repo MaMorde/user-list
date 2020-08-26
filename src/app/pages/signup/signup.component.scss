@@ -1,0 +1,47 @@
+.signup {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  &__container {
+    width: 385px;
+    height: auto;
+    background-color: whitesmoke;
+    position: relative;
+    text-align: center;
+  }
+  &__password {
+    margin-top: 5px;
+  }
+  &__validations {
+    color: red;
+  }
+  &__buttons {
+    display: block;
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+    &-login {
+      margin-top: 10px;
+    }
+  }
+  &__button {
+    font-size: 17px;
+    color: white;
+    background: rgba(179, 79, 199, 0.9);
+    width: 250px;
+  }
+  &__header {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    color: black;
+    margin-bottom: 10px;
+  }
+  &__title {
+    font-size: 25px;
+    margin-top: 10px;
+  }
+  &__form {
+    display: grid;
+  }
+}
