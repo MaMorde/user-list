@@ -11,11 +11,13 @@
   </div>
 
   <mat-card-content class="user-list__content">
-    <div class="user-list__user">
+    <div *ngFor="let user of users | async" class="user-list__user">
       <div class="user-list__user-wrapper">
-        <div class="user-list__user-username">Эмиль</div>
-        <div class="user-list__user-active">Online/Ofline</div>
-        <div class="user-list__user-lastlogin">Date</div>
+        <div class="user-list__user-username">{{ user.username }}</div>
+        <div class="user-list__user-active">{{ user.is_active }}</div>
+        <div class="user-list__user-firtname">{{ user.first_name }}</div>
+        <div class="user-list__user-firtname">{{ user.last_name }}</div>
+        <div class="user-list__user-lastlogin">{{ user.last_login }}</div>
       </div>
       <hr />
     </div>

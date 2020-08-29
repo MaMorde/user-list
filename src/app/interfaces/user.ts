@@ -5,6 +5,6 @@ export interface IUser {
   last_name: string;
   password: string;
   is_active: boolean;
-  last_login: Date;
-  is_superuser: boolean;
+  last_login?: Date;
+  is_superuser?: boolean;
 }

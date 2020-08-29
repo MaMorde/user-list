@@ -1,1 +1,68 @@
-<p>login works!</p>
+<div class="login">
+  <mat-card class="login__container">
+    <mat-card-header class="login__header">
+      <mat-card-title class="login__title">Вход</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="login__content">
+      <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+        <mat-label>Логин</mat-label>
+        <input
+          [(ngModel)]="username"
+          [formControl]="loginUsernameControl"
+          matInput
+          #input
+          placeholder="Введите логин"
+          (keydown.enter)="loginIn()"
+        />
+        <mat-hint align="end">{{ input.value?.length || 0 }}/10</mat-hint>
+      </mat-form-field>
+      <div
+        *ngIf="loginUsernameControl.touched && loginUsernameControl.invalid"
+        class="login__validations"
+      >
+        <small *ngIf="loginUsernameControl.errors.required"
+          >Данное поле не может быть пустым</small
+        >
+      </div>
+      <mat-form-field class="login__password" appearance="fill">
+        <mat-label>Пароль</mat-label>
+        <input
+          [(ngModel)]="password"
+          [formControl]="loginPasswordControl"
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          (keydown.enter)="loginIn()"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+      </mat-form-field>
+      <div
+        *ngIf="loginPasswordControl.touched && loginPasswordControl.invalid"
+        class="login__validations"
+      >
+        <small *ngIf="loginPasswordControl.errors.required"
+          >Данное поле не может быть пустым</small
+        >
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="login__buttons">
+      <div class="login__buttons-enter">
+        <button class="login__button" mat-button (click)="loginIn()">
+          Войти
+        </button>
+      </div>
+      <div class="login__buttons-back">
+        <button class="login__button" mat-button routerLink="/signup">
+          Регистрация
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

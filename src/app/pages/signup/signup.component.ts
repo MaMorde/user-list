@@ -29,8 +29,8 @@ export class SignupComponent implements OnInit {
           Validators.minLength(1),
         ],
       ],
-      firstname: ['', Validators.required, Validators.maxLength(30)],
-      lastname: ['', Validators.required, Validators.maxLength(150)],
+      first_name: ['', Validators.required, Validators.maxLength(30)],
+      last_name: ['', Validators.required, Validators.maxLength(150)],
       password: [
         '',
         [
@@ -40,6 +40,7 @@ export class SignupComponent implements OnInit {
         ],
       ],
     });
+    this.authService.getUsers().subscribe((data) => (this.users = data));
   }
 
   public signupUser(user: IUser): void {
@@ -48,11 +49,9 @@ export class SignupComponent implements OnInit {
       first_name: user.first_name,
       last_name: user.last_name,
       password: user.password,
-      is_active: false,
-      last_login: new Date(),
-      is_superuser: false,
+      is_active: true,
     };
-
+    console.log(newUser);
     let chekUserName = false;
     if (this.users) {
       // tslint:disable-next-line:prefer-for-of
@@ -74,12 +73,11 @@ export class SignupComponent implements OnInit {
       alert('Такое имя уже использовано, введите другое!');
       return;
     } else {
+      this.authService.singUp(newUser).subscribe();
       this.router.navigate(['/userlist']);
     }
   }
-  consoles() {
-    this.authService.getUsers().subscribe((data) => console.log(data));
-  }
+
   public submit() {
     if (this.signupForm.invalid) {
       return;
