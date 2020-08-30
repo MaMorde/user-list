@@ -15,6 +15,7 @@ export class AuthService {
   };
   private headers = new HttpHeaders({
     accept: 'application/json',
+    'Content-Type': 'application/json',
     Authorization: 'Token 781bd9f1de084f4daa7ba2aa8a71a2eab855354e',
     'X-CSRFToken':
       'tcTPQJvtb7kAIpqmTZL9hyY22lRkGBU1iysaV3dhi34yidEXmgUujy73NnIlLWJI',
@@ -29,8 +30,15 @@ export class AuthService {
     });
   }
   singUp(user: IUser) {
-    return this.http.post<IUser>(`${this.link}/api/v1/users`, user, {
-      headers: this.headers,
-    });
+    return this.http.post<IUser>(
+      `${this.link}/api/v1/users`,
+      { data: user },
+      {
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
   }
 }

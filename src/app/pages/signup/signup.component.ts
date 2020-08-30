@@ -29,8 +29,8 @@ export class SignupComponent implements OnInit {
           Validators.minLength(1),
         ],
       ],
-      first_name: ['', Validators.required, Validators.maxLength(30)],
-      last_name: ['', Validators.required, Validators.maxLength(150)],
+      first_name: ['', [Validators.required, Validators.maxLength(30)]],
+      last_name: ['', [Validators.required, Validators.maxLength(150)]],
       password: [
         '',
         [
@@ -40,7 +40,6 @@ export class SignupComponent implements OnInit {
         ],
       ],
     });
-    this.authService.getUsers().subscribe((data) => (this.users = data));
   }
 
   public signupUser(user: IUser): void {
@@ -52,30 +51,9 @@ export class SignupComponent implements OnInit {
       is_active: true,
     };
     console.log(newUser);
-    let chekUserName = false;
-    if (this.users) {
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.users.length; i++) {
-        if (
-          this.users[i].username.toLowerCase() !==
-          newUser.username.trim().toLowerCase()
-        ) {
-          chekUserName = false;
-        } else {
-          chekUserName = true;
-        }
-      }
-    } else {
-      chekUserName = false;
-    }
-
-    if (chekUserName === true) {
-      alert('Такое имя уже использовано, введите другое!');
-      return;
-    } else {
-      this.authService.singUp(newUser).subscribe();
-      this.router.navigate(['/userlist']);
-    }
+    this.authService
+      .singUp(newUser)
+      .subscribe(() => this.router.navigate(['/userlist']));
   }
 
   public submit() {
