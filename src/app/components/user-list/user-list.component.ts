@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IUser } from 'src/app/interfaces/user';
 import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,9 +12,9 @@ import { AuthService } from 'src/app/services/auth.service';
 export class UserListComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
-  users: Observable<IUser[]>;
-
+  users: IUser[];
+  query: string;
   ngOnInit(): void {
-    this.users = this.authService.getUsers();
+    this.authService.getUsers().subscribe((users) => (this.users = users));
   }
 }

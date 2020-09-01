@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/interfaces/user';
 
@@ -26,7 +27,7 @@ export class SignupComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(150),
-          Validators.minLength(1),
+          Validators.pattern('^[w.@+-]+$'),
         ],
       ],
       first_name: ['', [Validators.required, Validators.maxLength(30)]],
@@ -36,7 +37,7 @@ export class SignupComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(128),
-          Validators.minLength(1),
+          Validators.pattern('^(?=.*[A-Z])(?=.*d).{8,}$'),
         ],
       ],
     });
@@ -44,16 +45,21 @@ export class SignupComponent implements OnInit {
 
   public signupUser(user: IUser): void {
     const newUser: IUser = {
-      username: user.username,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      password: user.password,
+      ...user,
+      last_login: new Date().toString(),
       is_active: true,
     };
-    console.log(newUser);
-    this.authService
-      .singUp(newUser)
-      .subscribe(() => this.router.navigate(['/userlist']));
+    this.authService.singUp(newUser).subscribe(() => {
+      {
+        this.authService
+          .authorization(newUser.username, newUser.password)
+          .subscribe((token) => {
+            localStorage.setItem('token', JSON.stringify(token));
+            this.router.navigate(['/userlist']);
+          });
+        this.authService.setAuthUser(newUser);
+      }
+    });
   }
 
   public submit() {

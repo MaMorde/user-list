@@ -26,6 +26,8 @@ import { UserListComponent } from './components/user-list/user-list.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './services/auth.service';
+import { FilterPipe } from './pipes/filter.pipe';
+import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { AuthService } from './services/auth.service';
     SignupComponent,
     NavbarComponent,
     UserListComponent,
+    FilterPipe,
+    SortPipe,
   ],
   imports: [
     BrowserModule,

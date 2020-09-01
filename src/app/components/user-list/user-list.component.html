@@ -5,19 +5,23 @@
       <input
         placeholder="Поиск пользователя"
         class="user-list__search-input"
+        matInput
+        [(ngModel)]="query"
+        autocomplete="off"
         type="text"
       />
     </div>
   </div>
 
   <mat-card-content class="user-list__content">
-    <div *ngFor="let user of users | async" class="user-list__user">
+    <div
+      *ngFor="let user of users | filter: 'username,text':query | sort: 'id'"
+      class="user-list__user"
+    >
       <div class="user-list__user-wrapper">
         <div class="user-list__user-username">{{ user.username }}</div>
-        <div class="user-list__user-active">{{ user.is_active }}</div>
-        <div class="user-list__user-firtname">{{ user.first_name }}</div>
-        <div class="user-list__user-firtname">{{ user.last_name }}</div>
-        <div class="user-list__user-lastlogin">{{ user.last_login }}</div>
+        <div class="user-list__online-indicator"></div>
+        <span class="user-list__online-text">Online</span>
       </div>
       <hr />
     </div>

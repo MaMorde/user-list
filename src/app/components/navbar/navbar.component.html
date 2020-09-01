@@ -8,7 +8,15 @@
     </div>
 
     <div class="navbar__btn-block">
-      <button class="navbar__logout" mat-button>Выйти</button>
+      <button
+        class="navbar__logout"
+        *ngIf="getToken()"
+        routerLink="/signup"
+        mat-button
+        (click)="logout()"
+      >
+        Выйти
+      </button>
     </div>
   </div>
 </mat-toolbar>

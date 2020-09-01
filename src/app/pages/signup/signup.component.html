@@ -11,10 +11,9 @@
           <mat-error *ngIf="signupForm.get('username').hasError('required')"
             >Введите логин</mat-error
           >
-          <mat-error *ngIf="signupForm.get('username').hasError('pattern')"
-            >Имя пользователя может состоять только из латинских букв
-            ицифр</mat-error
-          >
+          <mat-error *ngIf="signupForm.get('username').hasError('pattern')">
+            Только латинские буквы, цифры и @/./+/-/_.
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Введите ваше имя</mat-label>
@@ -48,6 +47,9 @@
           </button>
           <mat-error *ngIf="signupForm.get('password').hasError('required')"
             >Введите пароль</mat-error
+          >
+          <mat-error *ngIf="signupForm.get('password').hasError('pattern')"
+            >От 8 символов, 1 заглавная буква, 1 цифра.</mat-error
           >
         </mat-form-field>
       </mat-card-content>

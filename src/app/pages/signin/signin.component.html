@@ -8,7 +8,6 @@
         <mat-form-field hintLabel="Max 10 characters" appearance="fill">
           <mat-label>Логин</mat-label>
           <input
-            [(ngModel)]="username"
             formControlName="username"
             matInput
             #input
@@ -16,14 +15,14 @@
             (keydown.enter)="submit()"
           />
           <mat-hint align="end">{{ input.value?.length || 0 }}/10</mat-hint>
+          <mat-error *ngIf="signinForm.get('username').hasError('required')"
+            >Заполните поле</mat-error
+          >
         </mat-form-field>
-        <mat-error *ngIf="signinForm.get('username').hasError('required')"
-          >Заполните поле</mat-error
-        >
+
         <mat-form-field class="login__password" appearance="fill">
           <mat-label>Пароль</mat-label>
           <input
-            [(ngModel)]="password"
             formControlName="password"
             matInput
             [type]="hide ? 'password' : 'text'"
@@ -37,10 +36,10 @@
           >
             <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
+          <mat-error *ngIf="signinForm.get('password').hasError('required')"
+            >Заполните поле</mat-error
+          >
         </mat-form-field>
-        <mat-error *ngIf="signinForm.get('password').hasError('required')"
-          >Заполните поле</mat-error
-        >
       </mat-card-content>
       <mat-card-actions class="login__buttons">
         <div class="login__buttons-enter">
