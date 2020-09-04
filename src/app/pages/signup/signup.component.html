@@ -4,6 +4,9 @@
       <mat-card-title class="signup__title">Регистрация</mat-card-title>
     </mat-card-header>
     <form [formGroup]="signupForm" (ngSubmit)="submit()">
+      <mat-error *ngIf="this.error === 'username'"
+        >Такое имя пользователя уже использовано.</mat-error
+      >
       <mat-card-content class="signup__form">
         <mat-form-field appearance="fill">
           <mat-label>Придумайте логин</mat-label>

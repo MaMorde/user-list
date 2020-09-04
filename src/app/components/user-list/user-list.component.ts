@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { IUser } from 'src/app/interfaces/user';
-import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({

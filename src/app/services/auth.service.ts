@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { IUser } from '../interfaces/user';
-import { Observable, Subject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,16 +16,11 @@ export class AuthService {
       this.authUser = user;
     });
   }
-  public currentUser: Subject<IUser> = new Subject();
+  public errors = new Subject();
+  public error;
+  public currentUser: BehaviorSubject<IUser> = new BehaviorSubject(null);
   private link = 'http://emphasoft-test-assignment.herokuapp.com';
   private authUser: IUser;
-  private headers = new HttpHeaders({
-    accept: 'application/json',
-    'Content-Type': 'application/json',
-    Authorization: 'Token 781bd9f1de084f4daa7ba2aa8a71a2eab855354e',
-    'X-CSRFToken':
-      'tcTPQJvtb7kAIpqmTZL9hyY22lRkGBU1iysaV3dhi34yidEXmgUujy73NnIlLWJI',
-  });
 
   authorization(username: string, password: string): Observable<object> {
     return this.http.post(
@@ -41,13 +40,22 @@ export class AuthService {
   public setAuthUser(user: IUser) {
     this.currentUser.next(user);
   }
+  public setErrors(err) {
+    this.errors.next(err);
+  }
   getToken() {
     return JSON.parse(localStorage.getItem('token'));
   }
 
   getUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(`${this.link}/api/v1/users/`, {
-      headers: this.headers,
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Token ${this.getToken().token}`,
+        'X-CSRFToken':
+          'tcTPQJvtb7kAIpqmTZL9hyY22lRkGBU1iysaV3dhi34yidEXmgUujy73NnIlLWJI',
+      },
     });
   }
   singUp(user: IUser) {
@@ -59,16 +67,7 @@ export class AuthService {
     });
   }
   logout() {
+    localStorage.setItem('token', JSON.stringify(null));
     this.currentUser.next(null);
-    return this.http.put(
-      `${this.link}/api/v1/users/${this.authUser.id}/`,
-      (this.authUser.is_active = false),
-      {
-        headers: {
-          Authorization: `Token ${this.getToken()}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
   }
 }

@@ -4,6 +4,9 @@
       <mat-card-title class="login__title">Вход</mat-card-title>
     </mat-card-header>
     <form [formGroup]="signinForm" (ngSubmit)="submit()">
+      <mat-error *ngIf="this.error === 'fail'"
+        >Не верные данные для авторизации, повторите попытку</mat-error
+      >
       <mat-card-content class="login__content">
         <mat-form-field hintLabel="Max 10 characters" appearance="fill">
           <mat-label>Логин</mat-label>

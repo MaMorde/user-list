@@ -14,8 +14,6 @@ export class NavbarComponent implements OnInit {
     return this.authService.getToken();
   }
   public logout(): void {
-    this.authService.logout().subscribe(() => {
-      localStorage.setItem('token', JSON.stringify(null));
-    });
+    this.authService.logout();
   }
 }

@@ -11,7 +11,11 @@ body {
 .mat-card-header-text {
   width: 100%;
 }
-
+@media (max-width: 769px) {
+  app-user-list {
+    width: 100%;
+  }
+}
 @import "~@angular/material/theming";
 // Plus imports for other components in your app.
 

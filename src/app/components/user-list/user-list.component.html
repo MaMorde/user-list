@@ -3,7 +3,7 @@
     <div class="user-list__title">Пользователи</div>
     <div class="user-list__search">
       <input
-        placeholder="Поиск пользователя"
+        placeholder="Поиск..."
         class="user-list__search-input"
         matInput
         [(ngModel)]="query"
@@ -19,13 +19,19 @@
       class="user-list__user"
     >
       <div class="user-list__user-wrapper">
-        <div class="user-list__user-username">{{ user.username }}</div>
-        <div class="user-list__online-indicator"></div>
-        <span class="user-list__online-text">Online</span>
+        <div class="user-list__user-username">
+          {{ user.username }}
+        </div>
+        <div class="user-list__user-cont">
+          <div class="user-list__user-fnln">
+            {{ user.first_name + " " + user.last_name }}
+          </div>
+          <div class="user-list__user-date">
+            {{ user.last_login }}
+          </div>
+        </div>
       </div>
       <hr />
     </div>
   </mat-card-content>
-
-  <mat-card-actions class="chat__actions"> </mat-card-actions>
 </mat-card>
