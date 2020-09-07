@@ -30,15 +30,7 @@
             matInput
             [type]="hide ? 'password' : 'text'"
           />
-          <button
-            mat-icon-button
-            matSuffix
-            (click)="hide = !hide"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide"
-          >
-            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-          </button>
+
           <mat-error *ngIf="signinForm.get('password').hasError('required')"
             >Заполните поле</mat-error
           >
@@ -46,7 +38,7 @@
       </mat-card-content>
       <mat-card-actions class="login__buttons">
         <div class="login__buttons-enter">
-          <button class="login__button" mat-button>Войти</button>
+          <button type="submit" class="login__button" mat-button>Войти</button>
         </div>
         <div class="login__buttons-back">
           <button class="login__button" mat-button routerLink="/signup">

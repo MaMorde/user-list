@@ -19,7 +19,7 @@ export class AuthService {
   public errors = new Subject();
   public error;
   public currentUser: BehaviorSubject<IUser> = new BehaviorSubject(null);
-  private link = 'http://emphasoft-test-assignment.herokuapp.com';
+  private link = 'https://emphasoft-test-assignment.herokuapp.com';
   private authUser: IUser;
 
   authorization(username: string, password: string): Observable<object> {
