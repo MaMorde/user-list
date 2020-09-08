@@ -2,8 +2,10 @@
   display: flex;
   justify-content: center;
   margin-top: 50px;
+  width: 100vh;
   &__container {
     width: 385px;
+
     height: auto;
     background-color: whitesmoke;
     text-align: center;
@@ -44,5 +46,10 @@
   }
   &__content {
     display: grid;
+  }
+}
+@media (max-width: 769px) {
+  .login__container {
+    width: 300px;
   }
 }

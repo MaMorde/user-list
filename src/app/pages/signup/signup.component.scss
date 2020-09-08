@@ -45,3 +45,8 @@
     display: grid;
   }
 }
+@media (max-width: 769px) {
+  .signup__container {
+    width: 300px;
+  }
+}
